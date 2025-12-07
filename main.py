@@ -1,35 +1,36 @@
 import typer
-from user import Customer
+from application.customer_service import CustomerService
+from infrastructure.customer import CustomerRepo
 
-app = typer.Typer()
-
-customers = {}
-
-
-def get_customer(customer_id: str) -> Customer:
-    if customer_id not in customers:
-        customers[customer_id] = Customer(customer_id)
-    return customers[customer_id]
+app: typer.Typer = typer.Typer()
+service: CustomerService = CustomerService(CustomerRepo())
 
 
 @app.command()
-def earn(customer_id: str, points: int):
-    customer = get_customer(customer_id)
-    customer.add(points)
-    print(f"earned {points} balance={customer.points}")
+def earn(customer_id: str, points: int) -> None:
+    try:
+        balance: int = service.earn(customer_id, points)
+        print(f"earned {points} balance={balance}")
+    except Exception as e:
+        print(str(e))
 
 
 @app.command()
-def redeem(customer_id: str, points: int):
-    customer = get_customer(customer_id)
-    customer.subtract(points)
-    print(f"redeemed {points} balance={customer.points}")
+def redeem(customer_id: str, points: int) -> None:
+    try:
+        balance: int = service.redeem(customer_id, points)
+        print(f"redeemed {points} balance={balance}")
+    except Exception as e:
+        print(str(e))
 
 
 @app.command()
-def balance(customer_id: str):
-    customer = get_customer(customer_id)
-    print(f"balance={customer.points}")
+def balance(customer_id: str) -> None:
+    try:
+        current: int = service.balance(customer_id)
+        print(f"balance={current}")
+    except Exception as e:
+        print(str(e))
 
 
 if __name__ == "__main__":
