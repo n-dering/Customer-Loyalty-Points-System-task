@@ -1,9 +1,9 @@
 import typer
-from application.customer_service import CustomerService
+from application.customer_service import CustomerLoyalityService
 from infrastructure.customer import CustomerRepo
 
 app: typer.Typer = typer.Typer()
-service: CustomerService = CustomerService(CustomerRepo())
+service: CustomerLoyalityService = CustomerLoyalityService(CustomerRepo())
 
 
 @app.command()

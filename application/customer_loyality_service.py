@@ -3,7 +3,7 @@ from domain.entities.customer import Customer
 from infrastructure.customer import CustomerRepo
 
 
-class CustomerService:
+class CustomerLoyalityService:
     def __init__(self, repository: CustomerRepo) -> None:
         self._repo: CustomerRepo = repository
 
