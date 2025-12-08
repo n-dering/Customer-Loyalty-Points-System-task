@@ -16,9 +16,7 @@ class Customer:
         new_balance = self.points - amount
         self.points = new_balance
         if self.points < 10:
-            print(
-                f"Warning: Customer {self.customer_id} has a low balance: {self.points} points."
-            )
+            print(f"Warning: Customer {self.customer_id} low balance: {self.points} points.")
 
     def get_balance(self) -> int:
         return self.points
